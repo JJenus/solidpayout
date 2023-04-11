@@ -10,7 +10,6 @@ export const user = {
 		}
 
 		this.user = JSON.parse(userStr);
-		console.log(this.user.user);
 
 		return this.user.user;
 	},

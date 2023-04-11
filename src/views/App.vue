@@ -45,14 +45,14 @@
 		// console.log("User id: ", user.getUser().id)
 		let config = {
 			method: "GET",
-			url: `${env.VITE_BE_API}/users/${user.getUser().id}`,
+			url: `${env.VITE_BE_API}/users/${appUser.value.id}`,
 		};
 
 		await axios
 			.request(config)
 			.then((response) => {
-				appUser.value = response.data;
 				// console.log("User: ", appUser.value);
+				appUser.value = response.data;
 			})
 			.catch((error) => {
 				console.log(error);

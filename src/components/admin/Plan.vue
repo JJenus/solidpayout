@@ -1,5 +1,7 @@
 <script setup>
 	import axios from "axios";
+	import { inject, ref } from "vue";
+	import { alert } from "../../stores/utility";
 
 	const env = import.meta.env;
 
@@ -11,6 +13,43 @@
 			required: false,
 		},
 	});
+
+	const user = inject("user");
+	const loading = ref(false);
+
+	const form = ref({
+		userId: null,
+		subscriptionId: null,
+		length: 1,
+	});
+
+	function join() {
+		loading.value = true;
+		form.value.userId = user.value.id;
+		form.value.subscriptionId = props.plan.id;
+
+		// console.log(form.value);
+
+		let config = {
+			method: "POST",
+			data: form.value,
+			url: `${env.VITE_BE_API}/user-subscriptions`,
+		};
+
+		axios
+			.request(config)
+			.then((res) => {
+				console.log(res);
+				alert.success("Success", "Chat support to activate");
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				loading.value = false;
+			});
+		startPointer();
+	}
 
 	function delet() {
 		let config = {
@@ -33,7 +72,9 @@
 
 <template>
 	<div class="card mb-3 rounded-3 h-100 shadow">
-		<div class="card-body py-3 px-4 h-100 d-flex flex-column justify-content-between">
+		<div
+			class="card-body py-3 px-4 h-100 d-flex flex-column justify-content-between"
+		>
 			<div>
 				<p class="m-0 survey-head d-flex justify-content-between">
 					<span>{{ plan.title }}</span>
@@ -63,7 +104,17 @@
 					</a>
 				</div>
 				<div v-if="!admin">
-					<button class="btn btn-primary">Join</button>
+					<button
+						:class="loading ? 'disabled' : ''"
+						@click="join()"
+						class="btn btn-primary"
+					>
+						<span
+							v-if="loading"
+							class="spinner-border spinner-border-sm"
+						></span>
+						<span v-else>Start</span>
+					</button>
 				</div>
 			</div>
 		</div>

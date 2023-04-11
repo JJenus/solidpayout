@@ -31,6 +31,7 @@
 				<a href="#" class="nav-link">
 					<div class="nav-profile-image">
 						<img
+							width="40"
 							:src="appUser.imgUrl || '/assets/img/avatar.jpeg'"
 							alt="profile"
 						/>
@@ -39,7 +40,7 @@
 					</div>
 					<div class="nav-profile-text d-flex flex-column pr-3">
 						<span class="font-weight-normal mb-1">Welcome</span>
-						<span class="font-weight-medium ">{{
+						<span class="font-weight-medium">{{
 							appUser.name
 						}}</span>
 					</div>

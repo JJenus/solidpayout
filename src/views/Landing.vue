@@ -248,6 +248,7 @@
 </template>
 
 <style scoped>
+	@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css");
 	.bg-pick {
 		background-color: #dde4e6;
 	}

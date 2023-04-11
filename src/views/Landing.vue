@@ -1,8 +1,36 @@
 <script setup>
-	import { ref } from "vue";
+	import axios from "axios";
+	import { onMounted, ref } from "vue";
 	import Navbar from "../components/product/Navbar.vue";
 	import SwiperTag from "../components/product/SwiperTag.vue";
 	import Features from "../components/product/Features.vue";
+
+	const env = import.meta.env;
+
+	const testimonials = ref([]);
+
+	function loadTestifiers() {
+		let config = {
+			method: "GET",
+			url: `${env.VITE_BE_API}/testimonials`,
+		};
+
+		axios
+			.request(config)
+			.then((res) => {
+				console.log(res);
+				let data = res.data;
+				testimonials.value = data;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {});
+	}
+
+	onMounted(() => {
+		loadTestifiers();
+	});
 </script>
 
 <template>
@@ -99,7 +127,7 @@
 												<th>Pick</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody class="d-none">
 											<tr>
 												<td>Chelsea - MK Dons</td>
 												<td>
@@ -149,6 +177,9 @@
 										</tbody>
 									</table>
 								</div>
+								<div class="text-muted text-center">
+									Login and view on dashboard
+								</div>
 							</div>
 						</div>
 					</div>
@@ -159,81 +190,80 @@
 		<div class="my-4 p-5 pb-0">
 			<h1 class="h3">Testimonials</h1>
 			<h5>Satisfied users all over the world</h5>
-			<div class="row mt-5">
-				<div class="col-md-4 mb-3">
-					<div class="card rounded-4">
-						<div class="card-body px-5 py-4">
+			<div
+				class="row mt-5 g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 align-items-stretch"
+			>
+				<div v-for="testimony in testimonials" class="col">
+					<div class="card rounded-4 h-100">
+						<div
+							class="card-body px-4 py-4 h-100 d-flex flex-column justify-content-between"
+						>
 							<h4 class="mb-5">
 								<i class="fa-solid fa-quote-left"></i>
 							</h4>
 							<div class="mb-5">
 								<p>
-									Simply follow the identity verification to
-									verify your identity. This is essential for
-									safety of the account.
+									{{ testimony.testimony }}
 								</p>
 								<div class="d-flex">
 									<i
-										class="fa-solid fa-star me-2 text-warning"
+										:class="
+											testimony.rating >= 1
+												? 'text-warning'
+												: 'text-dark'
+										"
+										class="fa-solid fa-star me-2"
 									></i>
 									<i
-										class="fa-solid fa-star me-2 text-warning"
+										:class="
+											testimony.rating >= 2
+												? 'text-warning'
+												: 'text-dark'
+										"
+										class="fa-solid fa-star me-2"
 									></i>
 									<i
-										class="fa-solid fa-star me-2 text-warning"
+										:class="
+											testimony.rating >= 3
+												? 'text-warning'
+												: 'text-dark'
+										"
+										class="fa-solid fa-star me-2"
 									></i>
 									<i
-										class="fa-solid fa-star me-2 text-warning"
+										:class="
+											testimony.rating >= 4
+												? 'text-warning'
+												: 'text-dark'
+										"
+										class="fa-solid fa-star me-2"
 									></i>
 									<i
-										class="fa-solid fa-star me-2 teext-warning"
+										:class="
+											testimony.rating >= 5
+												? 'text-warning'
+												: 'text-dark'
+										"
+										class="fa-solid fa-star me-2"
 									></i>
 								</div>
 							</div>
 							<div class="mt-4 d-flex align-items-center">
 								<i
+									v-if="testimony.imgUrl == null"
 									class="fa-solid fa-user-circle me-2 fs-2"
 								></i>
-								<span class="fw-bold">Johny Walter</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 mb-3">
-					<div class="card rounded-4">
-						<div class="card-body px-5 py-4">
-							<h4 class="mb-5">
-								<i class="fa-solid fa-quote-left"></i>
-							</h4>
-							<div class="mb-5">
-								<p>
-									Simply follow the identity verification to
-									verify your identity. This is essential for
-									safety of the account.
-								</p>
-								<div class="d-flex">
-									<i
-										class="fa-solid fa-star me-2 text-warning"
-									></i>
-									<i
-										class="fa-solid fa-star me-2 text-warning"
-									></i>
-									<i
-										class="fa-solid fa-star me-2 text-warning"
-									></i>
-									<i
-										class="fa-solid fa-star me-2 text-warning"
-									></i>
-									<i
-										class="fa-solid fa-star me-2 teext-warning"
-									></i>
-								</div>
-							</div>
-							<div class="mt-4 d-flex align-items-center">
-								<i
-									class="fa-solid fa-user-circle me-2 fs-2"
-								></i>
-								<span class="fw-bold">Johny Walter</span>
+								<img
+									v-else
+									height="32"
+									width="32"
+									class="me-2 rounded-circle"
+									:src="testimony.imgUrl"
+									alt="photo"
+								/>
+								<span class="fw-bold">{{
+									testimony.userName
+								}}</span>
 							</div>
 						</div>
 					</div>

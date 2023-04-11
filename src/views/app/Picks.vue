@@ -1,9 +1,38 @@
 <script setup>
-	// import("@/assets/vendors/js/vendor.bundle.base.js");
-	// import("@/assets/js/off-canvas.js");
-	// import("@/assets/js/hoverable-collapse.js");
-	// import("@/assets/js/misc.js");
-	// import("@/assets/js/dashboard.js");
+	import axios from "axios";
+	import { onMounted, ref } from "vue";
+	import { user } from "@/stores/user";
+
+	const env = import.meta.env;
+	const subscriptions = ref([]);
+
+	async function loadSubscriptions() {
+		let config = {
+			method: "GET",
+			url: `${env.VITE_BE_API}/user-subscriptions/${user.getUser().id}`,
+		};
+
+		axios
+			.request(config)
+			.then((res) => {
+				console.log(res);
+				let data = res.data;
+				subscriptions.value = data;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {});
+	}
+
+	function status(stat) {
+		if (!stat) return "pending";
+		return stat;
+	}
+
+	onMounted(() => {
+		loadSubscriptions();
+	});
 </script>
 
 <template>
@@ -60,57 +89,31 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-4">
+							<div v-for="sub in subscriptions" class="col-sm-4">
 								<div class="card mb-3 mb-sm-0">
 									<div class="card-body py-3 px-4">
-										<p class="m-0 survey-head">Starter</p>
+										<p class="m-0 survey-head">
+											{{ sub.subscription.title }}
+										</p>
 										<div
 											class="d-flex justify-content-between align-items-end flot-bar-wrapper"
 										>
 											<div>
 												<h3 class="m-0 survey-value">
-													$5,300
+													${{
+														sub.subscription.amount
+													}}
 												</h3>
-												<p class="text-success m-0">
-													active
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="card mb-3 mb-sm-0">
-									<div class="card-body py-3 px-4">
-										<p class="m-0 survey-head">Starter</p>
-										<div
-											class="d-flex justify-content-between align-items-end flot-bar-wrapper"
-										>
-											<div>
-												<h3 class="m-0 survey-value">
-													$5,300
-												</h3>
-												<p class="text-success m-0">
-													active
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="card mb-3 mb-sm-0">
-									<div class="card-body py-3 px-4">
-										<p class="m-0 survey-head">Starter</p>
-										<div
-											class="d-flex justify-content-between align-items-end flot-bar-wrapper"
-										>
-											<div>
-												<h3 class="m-0 survey-value">
-													$5,300
-												</h3>
-												<p class="text-success m-0">
-													active
+												<p
+													:class="
+														status(sub.status) ==
+														'pending'
+															? 'text-warning'
+															: 'text-success'
+													"
+													class="m-0"
+												>
+													{{ status(sub.status) }}
 												</p>
 											</div>
 										</div>

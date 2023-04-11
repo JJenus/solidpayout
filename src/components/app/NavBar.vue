@@ -1,14 +1,15 @@
 <script setup>
-	import { ref } from "vue";
+	import { inject, ref } from "vue";
 
 	const toggleIcon = ref(false);
+	const user = inject("user");
 
 	function toggleMenu() {
 		toggleIcon.value = !toggleIcon.value;
 		const body = document.querySelector("body");
 		if (toggleIcon.value) {
 			body.classList.add("sidebar-icon-only");
-		}else{
+		} else {
 			body.classList.remove("sidebar-icon-only");
 		}
 	}
@@ -44,12 +45,12 @@
 						role="button"
 						data-toggle="dropdown"
 					>
+						<span class="profile-name me-2">{{ user.name }}</span>
 						<img
-							class="nav-profile-img mr-2"
-							alt=""
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNM8w_wwY96T4iTcHM1nxVn_jCgz-jX7kIuA&usqp=CAU"
+							class="nav-profile-img"
+							alt="dp"
+							:src="user.imgUrl || '/assets/img/avatar.jpeg'"
 						/>
-						<span class="profile-name">Henry Klein</span>
 					</a>
 				</li>
 			</ul>
@@ -65,7 +66,6 @@
 		</div>
 	</nav>
 </template>
-
 
 <style scoped>
 	@import url("@/assets/css/imports.css");

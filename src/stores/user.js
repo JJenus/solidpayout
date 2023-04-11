@@ -1,6 +1,6 @@
 export const user = {
 	user: null,
-	authKey: "firr@m0@key-auth",
+	authKey: "solid@key-auth",
 
 	getUser() {
 		const userStr = localStorage.getItem(this.authKey);

@@ -32,18 +32,25 @@
 </script>
 
 <template>
-	<div class="card mb-3 mb-sm-0">
-		<div class="card-body py-3 px-4">
-			<p class="m-0 survey-head d-flex justify-content-between">
-				<span>{{ plan.title }}</span>
-				<span v-if="admin" style="font-size: .8rem; padding: 1x;" class="bg-secondary text-capitalised text-white px-3 fs-xs rounded-3 ">{{ plan.type }}</span>
-			</p>
-			<div class="m-0 my-2 d-flex align-items-center">
-				<h3 class="survey-value">${{ plan.amount }}</h3>
+	<div class="card mb-3 rounded-3 h-100 shadow">
+		<div class="card-body py-3 px-4 h-100 d-flex flex-column justify-content-between">
+			<div>
+				<p class="m-0 survey-head d-flex justify-content-between">
+					<span>{{ plan.title }}</span>
+					<span
+						v-if="admin"
+						style="font-size: 0.8rem; padding: 1x"
+						class="bg-secondary text-capitalised text-white px-3 fs-xs rounded-3"
+						>{{ plan.type }}</span
+					>
+				</p>
+				<div class="m-0 my-2 d-flex align-items-center">
+					<h3 class="survey-value">${{ plan.amount }}</h3>
 
-				<small class="small fs-sm text-muted"
-					>/{{ plan.duration }}
-				</small>
+					<small class="small fs-sm text-muted"
+						>/{{ plan.duration }}
+					</small>
+				</div>
 			</div>
 			<p>{{ plan.description }}</p>
 			<div
@@ -55,7 +62,7 @@
 						<i class="bi bi-trash3"></i>
 					</a>
 				</div>
-				<div>
+				<div v-if="!admin">
 					<button class="btn btn-primary">Join</button>
 				</div>
 			</div>

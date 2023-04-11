@@ -6,7 +6,11 @@
 </script>
 
 <template>
-	<nav class="sidebar sticky-top vh-min sidebar-offcanvas" id="sidebar">
+	<nav
+		style="min-height: 100vh"
+		class="sidebar sticky-top vh-min sidebar-offcanvas"
+		id="sidebar"
+	>
 		<div
 			class="sidebar-brand-wrapper px-0 pt-3 d-flex align-items-center justify-content-center"
 		>
@@ -34,8 +38,10 @@
 						<!--change to offline or busy as needed-->
 					</div>
 					<div class="nav-profile-text d-flex flex-column pr-3">
-						<span class="font-weight-medium mb-2">Henry Klein</span>
-						<span class="font-weight-normal">Welcome</span>
+						<span class="font-weight-normal mb-1">Welcome</span>
+						<span class="font-weight-medium ">{{
+							appUser.name
+						}}</span>
 					</div>
 					<span
 						class="badge badge-success d-inline-blocik d-none text-white ml-3 rounded-circle p-2"

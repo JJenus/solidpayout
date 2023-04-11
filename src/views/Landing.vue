@@ -1,13 +1,16 @@
 <script setup>
 	import axios from "axios";
-	import { onMounted, ref } from "vue";
+	import { onMounted, provide, ref } from "vue";
 	import Navbar from "../components/product/Navbar.vue";
 	import SwiperTag from "../components/product/SwiperTag.vue";
 	import Features from "../components/product/Features.vue";
+	import AuthModal from "../components/AuthModal.vue";
 
 	const env = import.meta.env;
 
 	const testimonials = ref([]);
+	const signIn = ref(true);
+	provide("authMode", signIn);
 
 	function loadTestifiers() {
 		let config = {
@@ -30,10 +33,12 @@
 
 	onMounted(() => {
 		loadTestifiers();
+		console.log(signIn.value);
 	});
 </script>
 
 <template>
+	<AuthModal />
 	<Navbar />
 	<div
 		class="container-fluid pt-0 pt-md-4 py-4 px-md-5"
@@ -64,13 +69,19 @@
 						<button
 							class="btn btn-primary rounded-pill px-4"
 							type="button"
+							data-bs-toggle="modal"
+							data-bs-target="#authModal"
+							@click="signIn = true"
 						>
 							Login
 						</button>
 						<span class="mx-3">OR</span>
 						<button
+							@click="signIn = false"
 							class="btn btn-outline-primary rounded-pill px-4"
 							type="button"
+							data-bs-toggle="modal"
+							data-bs-target="#authModal"
 						>
 							Signup <span class="d-none d-md-inline">Now</span>
 						</button>

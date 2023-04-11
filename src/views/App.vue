@@ -42,6 +42,7 @@
 	}
 
 	async function loadUser() {
+		// console.log("User id: ", user.getUser().id)
 		let config = {
 			method: "GET",
 			url: `${env.VITE_BE_API}/users/${user.getUser().id}`,
@@ -51,8 +52,11 @@
 			.request(config)
 			.then((response) => {
 				appUser.value = response.data;
+				// console.log("User: ", appUser.value);
 			})
-			.catch(function (error) {});
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 
 	onMounted(() => {
@@ -71,7 +75,7 @@
 
 	onBeforeMount(async () => {
 		// mountChat();
-		// await loadUser();
+		await loadUser();
 	});
 </script>
 
@@ -80,8 +84,8 @@
 		<SideBar></SideBar>
 		<div class="container-fluid page-body-wrapper">
 			<NavBar></NavBar>
-			<div class="main-panel mb-3">
-				<RouterView class="vh-min" />
+			<div class="main-panel mb-0 position-relative">
+				<RouterView class="vh-min pb-5 mb-5" />
 				<Footer />
 			</div>
 			<!-- main-panel ends -->
@@ -93,4 +97,3 @@
 <style scoped>
 	@import url("../assets/css/imports.css");
 </style>
-

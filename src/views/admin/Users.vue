@@ -31,6 +31,7 @@
 
 	function search(evt) {
 		util.search(".user", evt.target.value);
+		// console.log(evt.target.value);
 	}
 
 	async function loadPlans() {
@@ -81,7 +82,7 @@
 		<div
 			class="mt-3 row g-3 row-cols-1 row-cols-md-3 align-items-stretched"
 		>
-			<div v-for="user in users" class="col">
+			<div v-for="user in users" class="col user">
 				<User :user="user" :plans="plans" />
 			</div>
 		</div>

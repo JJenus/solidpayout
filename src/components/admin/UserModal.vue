@@ -1,4 +1,6 @@
 <script setup>
+	import UserSubscription from "./UserSubscription.vue";
+
 	const props = defineProps({
 		user: {
 			required: true,
@@ -20,7 +22,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" >
+					<h1 class="modal-title fs-5">
 						{{ user.name }}'s subscriptions
 					</h1>
 					<button
@@ -31,9 +33,9 @@
 					></button>
 				</div>
 				<div class="modal-body">
-					<div class="row">
-						<div v-for="plan in plans" class="col-md-4">
-							
+					<div class="row g-4">
+						<div v-for="plan in plans" class="col-md-6">
+							<UserSubscription :sub="plan" />
 						</div>
 					</div>
 				</div>

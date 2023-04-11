@@ -1,5 +1,5 @@
 <script setup>
-	import { ref } from "vue";
+	import { onBeforeMount, ref } from "vue";
 	import moment from "moment";
 	import axios from "axios";
 	import UserModal from "./UserModal.vue";
@@ -26,10 +26,8 @@
 	const subscriptions = ref([]);
 	const loading = ref(false);
 
-	function submit() {
-		const ele = document.querySelector("form");
-
-		if (!ele.checkValidity()) return;
+	function submit(ele) {
+		if (!ele.target.checkValidity()) return;
 		loading.value = true;
 		form.value.userId = props.user.id;
 		console.log(form.value);
@@ -43,7 +41,7 @@
 		axios
 			.request(config)
 			.then((res) => {
-				ele.reset();
+				// ele.target.reset();
 				loadSubscriptions();
 			})
 			.catch((error) => {
@@ -106,6 +104,10 @@
 	function status() {
 		return props.user.status || "New";
 	}
+
+	onBeforeMount(() => {
+		loadSubscriptions();
+	});
 </script>
 
 <template>
@@ -155,22 +157,25 @@
 				</a>
 				Add personal plan to user
 			</h6>
-			<form @submit.prevent="submit()">
+			<form @submit.prevent="submit($event)">
 				<label for="" class="label">Plans</label>
 				<select
 					v-model="form.subscriptionId"
 					id="select-plan"
 					class="form-select my-2"
+					required
 				>
 					<option v-for="plan in plans" :value="plan.id">
 						{{ plan.title }} ${{ plan.amount }}
 					</option>
 				</select>
 				<button
-					type="button"
+					:class="loading ? 'disabled' : ''"
+					type="submit"
 					class="btn btn-outline-primary w-100 mt-2"
 				>
-					Save
+					<span v-if="loading"></span>
+					<span v-else>Save</span>
 				</button>
 			</form>
 		</div>

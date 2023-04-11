@@ -40,7 +40,9 @@
 					</div>
 					<span
 						class="badge badge-success d-inline-blocik text-white ml-3 rounded-3 p-2"
-						>140</span
+						>
+						<i class="fa-solid fa-circle"></i>
+						</span
 					>
 				</a>
 			</li>
@@ -55,6 +57,12 @@
 				<a class="nav-link" href="users">
 					<i class="mdi mdi-account-multiple menu-icon"></i>
 					<span class="menu-title">Users</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="testimonies">
+					<i class="mdi mdi-comment-quote menu-icon"></i>
+					<span class="menu-title">Testimonies</span>
 				</a>
 			</li>
 			<li class="nav-item mb-5">

@@ -1,10 +1,12 @@
 <script setup>
 	import axios from "axios";
-	import { onMounted, ref } from "vue";
+	import { inject, onMounted, ref } from "vue";
 	import { user } from "@/stores/user";
 
 	const env = import.meta.env;
 	const subscriptions = ref([]);
+
+	const appUser = inject("user");
 
 	async function loadSubscriptions() {
 		let config = {
@@ -39,8 +41,8 @@
 	<div class="content-wrapper pb-0">
 		<div class="page-header flex-wrap">
 			<h3 class="mb-4">
-				Hi, Kelvin
-				<span class="pl-0 h6 pl-sm-2 text-muted d-inline-block"
+				Hi, {{ appUser.name }} <br />
+				<span class="h6 text-muted d-inline-block"
 					>Stake wisely on the selections carefully picked just for
 					you</span
 				>

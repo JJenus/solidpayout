@@ -67,14 +67,14 @@
 		const plugin = document.createElement("script");
 		plugin.setAttribute(
 			"src",
-			"//code.tidio.co/oje9p3zweqxnqqcawyqj6y0krt7adfbb.js"
+			"//code.tidio.co/vtlaremdhzwtv5fcwxfvtvavtuxg8u6t.js"
 		);
 		plugin.async = true;
 		document.head.appendChild(plugin);
 	}
 
 	onBeforeMount(async () => {
-		// mountChat();
+		mountChat();
 		await loadUser();
 	});
 </script>

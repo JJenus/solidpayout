@@ -31,9 +31,20 @@
 			.finally(() => {});
 	}
 
+	async function mountChat() {
+		const plugin = document.createElement("script");
+		plugin.setAttribute(
+			"src",
+			"//code.tidio.co/vtlaremdhzwtv5fcwxfvtvavtuxg8u6t.js"
+		);
+		plugin.async = true;
+		document.head.appendChild(plugin);
+	}
+
 	onMounted(() => {
 		loadTestifiers();
 		console.log(signIn.value);
+		mountChat();
 	});
 </script>
 

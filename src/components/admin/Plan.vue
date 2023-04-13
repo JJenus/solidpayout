@@ -4,7 +4,7 @@
 	import { alert } from "../../stores/utility";
 
 	const env = import.meta.env;
-
+ 
 	const props = defineProps({
 		plan: {
 			required: true,
@@ -36,11 +36,21 @@
 			url: `${env.VITE_BE_API}/user-subscriptions`,
 		};
 
+		const userMessage = `Hello ${user.value.name}, please confirm your request.`;
+		const planMessage = `SUBSCRIPTION \n\nPlan: ${props.plan.title} \nAmount: $${props.plan.amount}`;
+		console.log(userMessage, planMessage);
+		// return;
 		axios
 			.request(config)
 			.then((res) => {
 				console.log(res);
 				alert.success("Success", "Chat support to activate");
+				setTimeout(() => {
+					window.tidioChatApi.open();
+					// console.log(message);
+					window.tidioChatApi.messageFromOperator(userMessage);
+					window.tidioChatApi.messageFromOperator(planMessage);
+				}, 3000);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -76,15 +86,22 @@
 			class="card-body py-3 px-4 h-100 d-flex flex-column justify-content-between"
 		>
 			<div>
-				<p class="m-0 survey-head d-flex justify-content-between">
-					<span>{{ plan.title }}</span>
-					<span
-						v-if="admin"
-						style="font-size: 0.8rem; padding: 1x"
-						class="bg-secondary text-capitalised text-white px-3 fs-xs rounded-3"
-						>{{ plan.type }}</span
-					>
-				</p>
+				<div
+					class="m-0 d-flex align-items-start justify-content-between"
+				>
+					<div>
+						<span>{{ plan.title }}</span>
+					</div>
+					<div class="ms-2">
+						<div
+							v-if="admin"
+							style="font-size: 0.6rem"
+							class="bg-secondary text-white px-2 rounded-3"
+						>
+							{{ plan.type }}
+						</div>
+					</div>
+				</div>
 				<div class="m-0 my-2 d-flex align-items-center">
 					<h3 class="survey-value">${{ plan.amount }}</h3>
 

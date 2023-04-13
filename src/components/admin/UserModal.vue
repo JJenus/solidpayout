@@ -1,5 +1,6 @@
 <script setup>
 	import UserSubscription from "./UserSubscription.vue";
+	import { util } from "../../stores/utility";
 
 	const props = defineProps({
 		user: {
@@ -9,6 +10,10 @@
 			required: true,
 		},
 	});
+
+	function search(evt) {
+		util.search(".plan", evt.target.value);
+	}
 </script>
 
 <template>
@@ -19,7 +24,7 @@
 		:aria-labelledby="`admin-user-modal-${user.id}`"
 		aria-hidden="true"
 	>
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-fullscreen-sm-down">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5">
@@ -33,8 +38,18 @@
 					></button>
 				</div>
 				<div class="modal-body">
+					<div class="d-flex justify-content-end mb-3">
+						<form>
+							<input
+								@keyup="search($event)"
+								type="text"
+								class="form-control text-left"
+								placeholder="search"
+							/>
+						</form>
+					</div>
 					<div class="row g-4">
-						<div v-for="plan in plans" class="col-md-6">
+						<div v-for="plan in plans" class="col-md-6 plan">
 							<UserSubscription :sub="plan" />
 						</div>
 					</div>

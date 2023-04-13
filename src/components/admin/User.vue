@@ -1,8 +1,9 @@
 <script setup>
-	import { onBeforeMount, ref } from "vue";
+	import { onBeforeMount, provide, ref } from "vue";
 	import moment from "moment";
 	import axios from "axios";
 	import UserModal from "./UserModal.vue";
+	import { alert } from "../../stores/utility";
 
 	const env = import.meta.env;
 
@@ -43,6 +44,7 @@
 			.then((res) => {
 				// ele.target.reset();
 				loadSubscriptions();
+				alert.success();
 			})
 			.catch((error) => {
 				console.log(error);
@@ -75,6 +77,7 @@
 	}
 
 	async function loadSubscriptions() {
+		// console.log("Loading subs");
 		let config = {
 			method: "GET",
 			url: `${env.VITE_BE_API}/user-subscriptions/${props.user.id}`,
@@ -83,7 +86,7 @@
 		axios
 			.request(config)
 			.then((res) => {
-				console.log(res);
+				// console.log(res);
 				let data = res.data;
 				subscriptions.value = data;
 			})
@@ -92,6 +95,8 @@
 			})
 			.finally(() => {});
 	}
+
+	provide("loadSubs", loadSubscriptions);
 
 	function date(strDate) {
 		return moment(strDate).format("MMM Do, YYYY");
@@ -174,7 +179,10 @@
 					type="submit"
 					class="btn btn-outline-primary w-100 mt-2"
 				>
-					<span v-if="loading"></span>
+					<span
+						v-if="loading"
+						class="spinner-border spinner-border-sm"
+					></span>
 					<span v-else>Save</span>
 				</button>
 			</form>

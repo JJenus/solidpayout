@@ -10,7 +10,7 @@
 	async function loadPlans() {
 		let config = {
 			method: "GET",
-			url: `${env.VITE_BE_API}/subscriptions?type=all`,
+			url: `${env.VITE_BE_API}/subscriptions?type=primary`,
 		};
 
 		axios
@@ -43,7 +43,7 @@
 			</h3>
 		</div>
 
-		<div class="row align-items-stretch">
+		<div class="row align-items-stretch g-3">
 			<div v-for="plan in plans" class="col-md-4">
 				<Plan :plan="plan" />
 			</div>

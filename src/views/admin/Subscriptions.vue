@@ -2,6 +2,7 @@
 	import axios from "axios";
 	import { onMounted, ref } from "vue";
 	import Plan from "@/components/admin/Plan.vue";
+	import { alert } from "../../stores/utility";
 
 	const env = import.meta.env;
 	const plans = ref([]);
@@ -34,6 +35,7 @@
 			.then((res) => {
 				loadPlans();
 				ele.reset();
+				alert.success("Created");
 			})
 			.catch((error) => {
 				console.log(error);
@@ -231,7 +233,7 @@
 		</div>
 
 		<div class="row g-3 row-cols-1 row-cols-md-2 row-cols-lg-3">
-			<div  v-for="plan in plans" class="col">
+			<div v-for="plan in plans" class="col">
 				<Plan :admin="true" :plan="plan" />
 			</div>
 		</div>

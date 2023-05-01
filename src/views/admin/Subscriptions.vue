@@ -233,7 +233,7 @@
 		</div>
 
 		<div class="row g-3 row-cols-1 row-cols-md-2 row-cols-lg-3">
-			<div v-for="plan in plans" class="col">
+			<div v-for="(plan, i) in plans" :key="i" class="col">
 				<Plan :admin="true" :plan="plan" />
 			</div>
 		</div>

@@ -40,7 +40,7 @@
 					href="#"
 				>
 					<img
-						src="/assets/logo.png"
+						src="/assets/logo-nbg.png"
 						alt="logo"
 						class="me-2"
 						width="50"

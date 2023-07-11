@@ -24,7 +24,7 @@
 			<a
 				class="navbar-brand brand-logo-mini align-self-center d-lg-none"
 				href="/app"
-				><img src="/assets/logo.png" alt="logo" width="40"
+				><img src="/assets/logo-nbg.png" alt="logo" width="40"
 			/></a>
 			<a
 				@click="toggleMenu()"

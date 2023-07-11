@@ -20,7 +20,7 @@
 				/>
 			</a>
 			<a class="brand-logo" href="/">
-				<img src="/assets/logo.png" alt="logo" width="64" />
+				<img src="/assets/images/favicon/favicon.ico" alt="logo" width="64" />
 			</a>
 		</div>
 		<ul class="nav">

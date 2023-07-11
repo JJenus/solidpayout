@@ -14,16 +14,22 @@
 		<div
 			class="sidebar-brand-wrapper px-0 pt-3 d-flex align-items-center justify-content-center"
 		>
-			<a class="brand-logo-mini" href="/">
-				<img
-					src="/assets/logo.png"
-					alt="logo"
-					class="img-auto"
-					height="10"
-				/>
+			<a class="brand-logo-mini d-none" href="/">
+				<div>
+					<img
+						src="/assets/images/favicon/favicon.ico"
+						alt="logo"
+						class="img-auto"
+						width="40"
+					/>
+				</div>
 			</a>
 			<a class="brand-logo" href="/">
-				<img src="/assets/logo.png" alt="logo" width="64" />
+				<img
+					src="/assets/images/favicon/favicon.ico"
+					alt="logo"
+					width="40"
+				/>
 			</a>
 		</div>
 		<ul class="nav">
